@@ -3,10 +3,53 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #3591e7;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #1170c7;
+}
+
+.active {
+  background-color: #c6ddf2;
+}
+</style>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>AdminPanel</title>
 </head>
 <body>
+<div>
+	<div align="center" id="logo" style="height:100px">LOGO</div>
+</div>
+<ul>
+	<li><a href="">Home</a></li>
+	<li><a href="/">Products</a></li>
+	<li><a href="/">Contact</a></li>
+	<li>
+		<a class="active">Add item</a>
+	</li>
+	<li style="float:right"><a href="">Account</a></li>
+	<li style="float:right"><a href="">Cart: </a></li>
+</ul>
 <h1>Item Register</h1>
   <form action="<%= request.getContextPath() %>/register" method="post">
    <table style="with: 80%">
