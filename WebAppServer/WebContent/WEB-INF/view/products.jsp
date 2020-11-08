@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,31 +49,29 @@ li a:hover {
 	<li style="float:right"><a href="">Account</a></li>
 	<li style="float:right"><a href="">Cart: </a></li>
 </ul>
-<h1>Item Register</h1>
-  <form action="<%= request.getContextPath() %>/register" method="post">
-   <table style="with: 80%">
-    <tr>
-     <td>name</td>
-     <td><input type="text" name="name" /></td>
-    </tr>
-    <tr>
-     <td>quantity</td>
-     <td><input type="text" name="quantity" /></td>
-    </tr>
-    <tr>
-     <td>price</td>
-     <td><input type="text" name="price" /></td>
-     </tr>
-     <tr>
-     <td>image</td>
-     <td><input type="text" name="image" /></td>
-     </tr>
-     <tr>
-     <td>category</td>
-     <td><input type="text" name="category" /></td>
-     </tr>
-   </table>
-   <input type="submit" value="Submit" />
-  </form>
+<h1>Products</h1>
+  <table>
+				<thead>
+					<tr>
+						<th>Image</th>
+						<th>Name</th>
+						<th>Quantity</th>
+						<th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="item" items="${itemsList}">
+
+						<tr>
+							<td><img src="${item.getImage()}"></img></td>
+							<td><c:out value="${item.getName()}" /></td>
+							<td><c:out value="${item.getQuantity()}" /></td>
+							<td><c:out value="${item.getPrice()}" /></td>
+						</tr>
+					</c:forEach>
+					<!-- } -->
+				</tbody>
+
+			</table>
 </body>
 </html>

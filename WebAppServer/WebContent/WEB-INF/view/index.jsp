@@ -42,11 +42,9 @@ li a:hover {
 </div>
 <ul>
 	<li><a class="active" href="">Home</a></li>
-	<li><a href="/">Products</a></li>
-	<li><a href="/">Contact</a></li>
-	<li>
-		<a href="register">Add Item</a>
-	</li>
+	<li><a href="products">Products</a></li>
+	<li><a href="contact">Contact</a></li>
+	<li><a href="register">Add Item</a></li>
 	<li style="float:right"><a href="">Account</a></li>
 	<li style="float:right"><a href="">Cart: </a></li>
 </ul>

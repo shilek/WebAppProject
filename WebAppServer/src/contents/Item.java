@@ -1,34 +1,54 @@
 package contents;
 
 public class Item {
-	private static int id;
-	private static String name;
-	private static int quantity;
-	private static double price;
+	private int id;
+	private String name;
+	private int quantity;
+	private double price;
+	private String image;
+	private String category;
 	
-	public static int getId() {
+	public Item(){};
+	
+	public Item(int id, String name, int quantity, double price, String image, String category) {
+		this.id = id;
+		this.name = name;
+		this.quantity = quantity;
+		this.price = price;
+		this.image = image;
+		this.category = category;
+	}
+	
+	public Item(String name, int quantity, double price, String image, String category) {
+		this.name = name;
+		this.quantity = quantity;
+		this.price = price;
+		this.image = image;
+		this.category = category;
+	}
+
+	public int getId() {
 		return id;
 	}
-	public static void setId(int _id) {
-		id = _id;
-	}
-	public static String getName() {
+	
+	public String getName() {
 		return name;
 	}
-	public static void setName(String _name) {
-		name = _name;
-	}
 	
-	public static int getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
-	public static void setQuantity(int _quantity) {
-		quantity = _quantity;
-	}
-	public static double getPrice() {
+
+	public double getPrice() {
 		return price;
 	}
-	public static void setPrice(double _price) {
-		price = _price;
+	
+	public String getImage() {
+		return image;
 	}
+	
+	public String getCategory() {
+		return category;
+	}
+
 }
