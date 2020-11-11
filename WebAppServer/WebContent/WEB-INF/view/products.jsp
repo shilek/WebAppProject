@@ -33,6 +33,19 @@ li a:hover {
 .active {
   background-color: #c6ddf2;
 }
+/* Ten kontener przechowuje 3 obrazki */
+.column {
+  float: left;
+  width: 33%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 </style>
 <meta charset="ISO-8859-1">
 <title>AdminPanel</title>
@@ -49,29 +62,31 @@ li a:hover {
 	<li style="float:right"><a href="">Account</a></li>
 	<li style="float:right"><a href="">Cart: </a></li>
 </ul>
-<h1>Products</h1>
-  <table>
-				<thead>
-					<tr>
-						<th>Image</th>
-						<th>Name</th>
-						<th>Quantity</th>
-						<th>Price</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="item" items="${itemsList}">
+<h1 style="text-align:center">Products</h1>
+ 	<div class="row">
+		<div>
 
-						<tr>
-							<td><img src="${item.getImage()}"></img></td>
-							<td><c:out value="${item.getName()}" /></td>
-							<td><c:out value="${item.getQuantity()}" /></td>
-							<td><c:out value="${item.getPrice()}" /></td>
-						</tr>
+					<c:forEach var="item" items="${itemsList}">
+					<div class="column">
+							<p style="text-align: center;"><img src="${item.getImage()}"class="img-responsive" width="400" height="300"><br></p>
+							<p style="text-align: center;"><font size="+2"><c:out value="${item.getName()}"></c:out></font></p>
+							<p style="text-align: center;">Ilosc: <c:out value="${item.getQuantity()}"></c:out></p>
+							<p style="text-align: center;">Cena: <c:out value="${item.getPrice()}" ></c:out>zl</p>
+							</div>
 					</c:forEach>
 					<!-- } -->
-				</tbody>
-
-			</table>
+		</div>
+	</div>
+	
+<footer>
+		<div class="footer"> &copy; 2020 Copyright:
+	      <a href="Controller?page=index"> Logo.com</a>
+	    </div>
+	</footer>	
+			
+			
+			
+			
+			
 </body>
 </html>
