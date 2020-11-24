@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="UTF-8"%>
- <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    pageEncoding="ISO-8859-1"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="ISO-8859-1">
 <style>
 ul {
   list-style-type: none;
@@ -34,8 +35,7 @@ li a:hover {
   background-color: #c6ddf2;
 }
 </style>
-<meta charset="UTF-8">
-<title>Contact</title>
+<title>Home</title>
 </head>
 <body>
 <div>
@@ -48,24 +48,25 @@ li a:hover {
 	<li><a href="itemRegister">Add Item</a></li>
 	<li style="float:right"><a href="account">Account</a></li>
 	<li style="float:right"><a href="cart">Cart: </a></li>
-</ul>
-
-<h1>About Us!</h1>
-<p>Nasza historia rozpoczela sie w 2020 roku z chwila rozpoczecia projektu na przedmiot Zaawansowane technologie uslug sieciowych. 
-Od tej pory nieustannie się rozwijamy, dzięki czemu za kilka lat staniemy sie ekspertami w branzy komputerowej. 
-Wyroznia nas empatia i wiedza technologiczna, co pozwala nam lepiej rozumiec potrzeby naszych Klientow. Jestesmy otwarci na sugestie i oferujemy nowe, ciekawe, ale i sprawdzone rozwiazania.</p>
-<h2>Dane firmy</h2>
-<p>Logo</p>
-<p>ul. Szafrana 2</p>
-<p>65-001 Zielona Góra</p>
-<h3>Dostawa</h3>
-<h4>Regulamin</h4>
-
-<footer>
-		<div class="footer"> &copy; 2020 Copyright:
-	      <a href="Controller?page=index"> Logo.com</a>
-	    </div>
-	</footer>	
-
+</ul>    
+<h1>Register</h1>
+  <form action="<%= request.getContextPath() %>/register" method="post">
+   <table style="with: 80%">
+    <tr>
+     <td>E-mail: </td>
+     <td><input type="text" name="email" /></td>
+    </tr>
+    <tr>
+     <td>Password: </td>
+     <td><input type="password" name="password" /></td>
+    </tr>
+    <tr>
+     <td>Retype password: </td>
+     <td><input type="password" name="passwordTest" /></td>
+    </tr>
+   </table>
+   <input type="submit" value="Submit" />
+  </form>
+		<c:out value = "${registerError}" />
 </body>
 </html>

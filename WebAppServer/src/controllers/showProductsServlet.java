@@ -18,7 +18,7 @@ import contents.Item;
 @WebServlet("/products")
 public class showProductsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private itemController itemController = new itemController();
+	private siteController siteController = new siteController();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -32,7 +32,7 @@ public class showProductsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Item> itemsList = itemController.selectAllItems();
+		List<Item> itemsList = siteController.selectAllItems();
 		request.setAttribute("itemsList", itemsList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/products.jsp");
 		dispatcher.forward(request, response);

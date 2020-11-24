@@ -36,7 +36,7 @@ li a:hover {
 /* Ten kontener przechowuje 3 obrazki */
 .column {
   float: left;
-  width: 33%;
+  width: 30%;
   padding: 5px;
 }
 
@@ -58,9 +58,9 @@ li a:hover {
 	<li><a href="">Home</a></li>
 	<li><a href="products">Products</a></li>
 	<li><a href="contact">Contact</a></li>
-	<li><a href="register">Add item</a></li>
-	<li style="float:right"><a href="">Account</a></li>
-	<li style="float:right"><a href="">Cart: </a></li>
+	<li><a href="itemRegister">Add item</a></li>
+	<li style="float:right"><a href="account">Account</a></li>
+	<li style="float:right"><a href="cart">Cart: </a></li>
 </ul>
 <h1 style="text-align:center">Products</h1>
  	<div class="row">

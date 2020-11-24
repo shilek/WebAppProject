@@ -44,12 +44,12 @@ li a:hover {
 	<li><a href="">Home</a></li>
 	<li><a href="products">Products</a></li>
 	<li><a href="contact">Contact</a></li>
-	<li><a href="register">Add item</a></li>
-	<li style="float:right"><a href="">Account</a></li>
-	<li style="float:right"><a href="">Cart: </a></li>
+	<li><a href="itemRegister">Add item</a></li>
+	<li style="float:right"><a href="account">Account</a></li>
+	<li style="float:right"><a href="cart">Cart: </a></li>
 </ul>
 <h1>Item Register</h1>
-  <form action="<%= request.getContextPath() %>/register" method="post">
+  <form action="<%= request.getContextPath() %>/itemRegister" method="post">
    <table style="with: 80%">
     <tr>
      <td>name</td>

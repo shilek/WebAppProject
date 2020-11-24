@@ -14,10 +14,10 @@ import contents.Item;
 /**
  * Servlet implementation class itemServlet
  */
-@WebServlet("/register")
+@WebServlet("/itemRegister")
 public class itemRegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private itemController itemController = new itemController();
+    private siteController siteController = new siteController();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -49,7 +49,7 @@ public class itemRegisterServlet extends HttpServlet {
 		Item item = new Item(name, Integer.parseInt(quantity), Double.parseDouble(price), image, category);
 		
 		try {
-			itemController.registerItem(item);
+			siteController.registerItem(item);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

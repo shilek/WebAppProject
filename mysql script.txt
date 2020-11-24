@@ -1,0 +1,40 @@
+CREATE TABLE `account`
+(
+ `id`       int NOT NULL AUTO_INCREMENT,
+ `name`     varchar(25) NOT NULL ,
+ `surname`  varchar(30) NOT NULL ,
+ `email`    varchar(100) NOT NULL ,
+ `password` varchar(60) NOT NULL ,
+
+PRIMARY KEY (`id`)
+);
+
+
+
+CREATE TABLE `items`
+(
+ `id`       int NOT NULL AUTO_INCREMENT,
+ `name`     varchar(100) NOT NULL ,
+ `price`    double NOT NULL ,
+ `quantity` int NOT NULL ,
+ `image`    varchar(500) NOT NULL ,
+ `category` varchar(100) NOT NULL ,
+
+PRIMARY KEY (`id`)
+);
+
+
+
+CREATE TABLE `bought_items`
+(
+ `account_id` int NOT NULL ,
+ `id`         int NOT NULL AUTO_INCREMENT,
+ `item_id`    int NOT NULL ,
+ `quantity`   int NOT NULL ,
+
+PRIMARY KEY (`id`),
+KEY `fkIdx_29` (`item_id`),
+CONSTRAINT `FK_29` FOREIGN KEY `fkIdx_29` (`item_id`) REFERENCES `items` (`id`),
+KEY `fkIdx_34` (`account_id`),
+CONSTRAINT `FK_34` FOREIGN KEY `fkIdx_34` (`account_id`) REFERENCES `account` (`id`)
+);
