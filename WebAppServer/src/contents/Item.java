@@ -6,11 +6,12 @@ public class Item {
 	private int quantity;
 	private double price;
 	private String image;
-	private String category;
+	private int category;
+	private int isObserved;
 	
 	public Item(){};
 	
-	public Item(int id, String name, int quantity, double price, String image, String category) {
+	public Item(int id, String name, int quantity, double price, String image, int category) {
 		this.id = id;
 		this.name = name;
 		this.quantity = quantity;
@@ -19,7 +20,7 @@ public class Item {
 		this.category = category;
 	}
 	
-	public Item(String name, int quantity, double price, String image, String category) {
+	public Item(String name, int quantity, double price, String image, int category) {
 		this.name = name;
 		this.quantity = quantity;
 		this.price = price;
@@ -47,8 +48,17 @@ public class Item {
 		return image;
 	}
 	
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
 
+	public int getIsObserved() {
+		return isObserved;
+	}
+
+	public void setIsObserved(int isObserved) {
+		this.isObserved = isObserved;
+	}
+
+	
 }

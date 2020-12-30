@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class index
@@ -30,35 +31,64 @@ public class accountServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setAttribute("loggedInEmail", siteController.loggedInEmail);
-		if(siteController.loggedInEmail != null) request.setAttribute("loggedUser", siteController.getUser(siteController.loggedInEmail));
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/account.jsp");
+		String action = request.getParameter("action");
+		HttpSession session = request.getSession();
+		if(action == null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/account.jsp");
+			dispatcher.forward(request, response);
+		} else if (action.equals("buy")){
+			session.setAttribute("save", "yes");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/buyStep2.jsp");
 		dispatcher.forward(request, response);
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		if(siteController.loggedInEmail == null) {
+		String action = request.getParameter("action");
 		try {
-			if (siteController.checkLogin(email, password) == true) {
-				siteController.loggedInEmail = email;
+			HttpSession session = request.getSession();
+			if(request.getParameter("logout") != null) {
+				session.removeAttribute("loggedUser");
+				session.removeAttribute("userName");
+				session.removeAttribute("userSurname");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
 				dispatcher.forward(request, response);
 			}
+			else {
+			if (siteController.checkLogin(email, password) == true) {
+				session.setAttribute("loggedUser", email);
+				session.setAttribute("userName", siteController.getUser(email).getName());
+				session.setAttribute("userSurname", siteController.getUser(email).getSurname());
+				if(action != null) {
+				if(action.equals("buy")) {
+					session.setAttribute("save", "yes");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/buyStep2.jsp");
+					dispatcher.forward(request, response);
+				}
+				}
+				else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
+				dispatcher.forward(request, response);
+				}
+				}
+				
 			else {
 				error = "Wrong email or password.";
 				request.setAttribute("loginError", error);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/accountError.jsp");
 				dispatcher.forward(request, response);
 			}
+			}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		
 	}
 
 }

@@ -34,6 +34,11 @@ li a:hover {
 .active {
   background-color: #c6ddf2;
 }
+
+.footer {
+position: fixed;
+bottom: 0;
+}
 </style>
 <title>Home</title>
 </head>
@@ -42,17 +47,16 @@ li a:hover {
 	<div align="center" id="logo" style="height:100px">LOGO</div>
 </div>
 <ul>
-	<li><a href="">Home</a></li>
+	<li><a href="index">Home</a></li>
 	<li><a href="products">Products</a></li>
 	<li><a href="contact">Contact</a></li>
-	<li><a href="itemRegister">Add Item</a></li>
 	<li style="float:right"><a href="account">Account</a></li>
 	<li style="float:right"><a href="cart">Cart: </a></li>
 </ul>
-<c:if test = "${loggedInEmail == NULL}">      
+<c:if test = "${loggedUser == NULL}">      
 <h1>Login</h1>
   <form action="<%= request.getContextPath() %>/account" method="post">
-   <table style="with: 80%">
+   <table>
     <tr>
      <td>E-mail: </td>
      <td><input type="text" name="email" /></td>
@@ -65,18 +69,21 @@ li a:hover {
    <input type="submit" value="Submit" /> <input type="button" onClick="javascript:window.location='register';" value="Register"/>
   </form>
 </c:if> 
- <c:if test = "${loggedInEmail != NULL}">  
+ <c:if test = "${loggedUser != NULL}">  
  <table>
  <tr>
- <td> Name: </td> <td><c:out value="${loggedUser.getName()}"/></td>
+ <td> Name: </td> <td><c:out value="${userName}"/></td>
  </tr>
  <tr>
- <td> Surname: </td> <td><c:out value="${loggedUser.getSurname()}"/></td>
+ <td> Surname: </td> <td><c:out value="${userSurname}"/></td>
  </tr>
  <tr>
- <td> E-mail: </td> <td><c:out value="${loggedUser.getEmail()}"/></td>
+ <td> E-mail: </td> <td><c:out value="${loggedUser}"/></td>
  </tr>
  </table>
+ <form action="<%= request.getContextPath() %>/account" method="post">
+ <input type="submit" value="Log out" name="logout"/>
+ </form>
 </c:if>
 </body>
 </html>

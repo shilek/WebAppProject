@@ -2,8 +2,13 @@
     pageEncoding="ISO-8859-1"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
+<%
+    response.setCharacterEncoding("UTF-8");
+    request.setCharacterEncoding("UTF-8");
+%>
 <html>
 <head>
+
 <style>
 ul {
   list-style-type: none;
@@ -33,11 +38,10 @@ li a:hover {
 .active {
   background-color: #c6ddf2;
 }
-/* Ten kontener przechowuje 3 obrazki */
-.column {
-  float: left;
-  width: 30%;
-  padding: 5px;
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Clear floats after image containers */
@@ -46,6 +50,54 @@ li a:hover {
   clear: both;
   display: table;
 }
+
+#newProduct {
+display: block;
+color: black;
+text-decoration: none;
+}
+
+#newProduct:hover{
+color: blue;
+text-decoration: underline;
+}
+
+h1 {
+background-color: lightblue;
+}
+
+.container {
+position: relative;
+width: 100%;
+}
+
+.left {
+width: 10%;
+float: left;
+background-color: lightblue;
+}
+
+.right {
+width: 75%;
+margin-left: 20%;
+margin-right: auto;
+}
+
+#categoryHref {
+color: black;
+text-decoration: none;
+}
+
+#categoryHref:hover{
+color: blue;
+text-decoration: underline;
+}
+
+.footer {
+position: fixed;
+bottom: 0;
+}
+
 </style>
 <meta charset="ISO-8859-1">
 <title>AdminPanel</title>
@@ -55,38 +107,51 @@ li a:hover {
 	<div align="center" id="logo" style="height:100px">LOGO</div>
 </div>
 <ul>
-	<li><a href="">Home</a></li>
+	<li><a href="index">Home</a></li>
 	<li><a href="products">Products</a></li>
 	<li><a href="contact">Contact</a></li>
-	<li><a href="itemRegister">Add item</a></li>
 	<li style="float:right"><a href="account">Account</a></li>
 	<li style="float:right"><a href="cart">Cart: </a></li>
 </ul>
 <h1 style="text-align:center">Products</h1>
- 	<div class="row">
-		<div>
-
-					<c:forEach var="item" items="${itemsList}">
-					<div class="column">
-							<p style="text-align: center;"><img src="${item.getImage()}"class="img-responsive" width="400" height="300"><br></p>
-							<p style="text-align: center;"><font size="+2"><c:out value="${item.getName()}"></c:out></font></p>
-							<p style="text-align: center;">Ilosc: <c:out value="${item.getQuantity()}"></c:out></p>
+<div class=container>
+<div class=left>
+		<table class=center>
+		<tr>
+		<td>
+		<p style="text-align: center;"><a id=categoryHref href="products">All products</a>
+		</td>
+		</tr>
+				<c:forEach var="category" items="${categories}">
+					<tr>
+						<td>
+							<p style="text-align: center;"><a id=categoryHref href="products?category=${category.getId()}">${category.getName()}</a><br></p>
+						</td>
+					</tr>	
+				</c:forEach>
+		</table>
+</div>
+ 	<div class=right>
+		<table class=center>
+				<c:forEach var="item" items="${itemsList}">
+					<tr>
+							<td>
+							<p style="text-align: center;"><img src="${item.getImage()}"class="img-responsive" width="150" height="150"><br></p>
+							</td>
+							<td width=80%>
+							<p style="text-align: center;"><font size="+2"><a id=newProduct href="products?id=${item.getId()}"><c:out value="${item.getName()}"></c:out></a></font></p>
+							</td>
+							<td width=10%>
 							<p style="text-align: center;">Cena: <c:out value="${item.getPrice()}" ></c:out>zl</p>
-							</div>
-					</c:forEach>
-					<!-- } -->
-		</div>
+							</td>
+					</tr>	
+				</c:forEach>
+		</table>
 	</div>
-	
-<footer>
-		<div class="footer"> &copy; 2020 Copyright:
-	      <a href="Controller?page=index"> Logo.com</a>
-	    </div>
-	</footer>	
-			
-			
-			
-			
+	<div class="footer"> &copy; 2020 Copyright:
+	      <a href="index"> Logo.com</a>
+	    </div>	
+</div>	
 			
 </body>
 </html>

@@ -24,17 +24,55 @@ PRIMARY KEY (`id`)
 );
 
 
+CREATE TABLE `orders`
+(
+ `id`       int NOT NULL AUTO_INCREMENT,
+ `order_id` int NOT NULL ,
+ `name`  varchar(25) NOT NULL ,
+ `surname`  varchar(30) NOT NULL ,
+ `email`  varchar(100) NOT NULL ,
+ `address`  varchar(100) NOT NULL ,
+ `city`  varchar(30) NOT NULL ,
+ `quantity` int NOT NULL ,
+ `item_id`  int NOT NULL ,
+
+PRIMARY KEY (`id`)
+);
+
 
 CREATE TABLE `bought_items`
 (
- `account_id` int NOT NULL ,
  `id`         int NOT NULL AUTO_INCREMENT,
- `item_id`    int NOT NULL ,
- `quantity`   int NOT NULL ,
+ `account_id` int NOT NULL ,
+ `order_id`   int NOT NULL ,
 
-PRIMARY KEY (`id`),
-KEY `fkIdx_29` (`item_id`),
-CONSTRAINT `FK_29` FOREIGN KEY `fkIdx_29` (`item_id`) REFERENCES `items` (`id`),
-KEY `fkIdx_34` (`account_id`),
-CONSTRAINT `FK_34` FOREIGN KEY `fkIdx_34` (`account_id`) REFERENCES `account` (`id`)
+PRIMARY KEY (`id`)
 );
+
+
+
+CREATE TABLE `observed_items`
+(
+ `id`         int NOT NULL AUTO_INCREMENT,
+ `account_id` int NOT NULL ,
+ `item_id`   int NOT NULL ,
+
+PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `categories`
+(
+ `id`         int NOT NULL AUTO_INCREMENT,
+ `name`   varchar(30) NOT NULL ,
+
+PRIMARY KEY (`id`)
+);
+
+
+INSERT INTO `categories` (`name`) VALUES ('Graphics cards'), ('Processors'), ('Motherboards'), ('Memory'), ('Power supplies'), ('Cooling');
+
+
+
+
+
+

@@ -46,7 +46,7 @@ public class itemRegisterServlet extends HttpServlet {
 		String image = request.getParameter("image");
 		String category = request.getParameter("category");
 		
-		Item item = new Item(name, Integer.parseInt(quantity), Double.parseDouble(price), image, category);
+		Item item = new Item(name, Integer.parseInt(quantity), Double.parseDouble(price), image, Integer.parseInt(category));
 		
 		try {
 			siteController.registerItem(item);

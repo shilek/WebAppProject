@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
+<%
+    response.setCharacterEncoding("UTF-8");
+    request.setCharacterEncoding("UTF-8");
+%>
 <html>
 <head>
 <style>
@@ -33,6 +37,25 @@ li a:hover {
 .active {
   background-color: #c6ddf2;
 }
+
+.column {
+  float: left;
+  width: 30%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.footer {
+position: fixed;
+bottom: 0;
+}
+
 </style>
 <meta charset="UTF-8">
 <title>Contact</title>
@@ -42,10 +65,9 @@ li a:hover {
 	<div align="center" id="logo" style="height:100px">LOGO</div>
 </div>
 <ul>
-	<li><a href="">Home</a></li>
+	<li><a href="index">Home</a></li>
 	<li><a href="products">Products</a></li>
 	<li><a href="contact">Contact</a></li>
-	<li><a href="itemRegister">Add Item</a></li>
 	<li style="float:right"><a href="account">Account</a></li>
 	<li style="float:right"><a href="cart">Cart: </a></li>
 </ul>
@@ -59,8 +81,25 @@ Wyroznia nas empatia i wiedza technologiczna, co pozwala nam lepiej rozumiec pot
 <p>ul. Szafrana 2</p>
 <p>65-001 Zielona Góra</p>
 <h3>Dostawa</h3>
-<h4>Regulamin</h4>
-
+<h3>Regulamin</h3>
+<h3>Kontakt z administracja</h3>
+<form action="<%= request.getContextPath() %>/contact" method="post">
+   <table style="with: 80%">
+    <tr>
+     <td>E-mail: </td>
+     <td><input type="text" name="email" /></td>
+    </tr>
+    <tr>
+     <td>Subject:  </td>
+     <td><input type="text" name="subject" /></td>
+    </tr>
+    <tr>
+     <td>Problem:  </td>
+     <td><input type="text" name="text" /></td>
+    </tr>
+   </table>
+   <input type="submit" value="Submit" />
+  </form>
 <footer>
 		<div class="footer"> &copy; 2020 Copyright:
 	      <a href="Controller?page=index"> Logo.com</a>

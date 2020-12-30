@@ -33,6 +33,11 @@ li a:hover {
 .active {
   background-color: #c6ddf2;
 }
+
+.footer {
+position: fixed;
+bottom: 0;
+}
 </style>
 <title>Home</title>
 </head>
@@ -41,10 +46,11 @@ li a:hover {
 	<div align="center" id="logo" style="height:100px">LOGO</div>
 </div>
 <ul>
-	<li><a href="">Home</a></li>
+	<li><a href="index">Home</a></li>
 	<li><a href="products">Products</a></li>
 	<li><a href="contact">Contact</a></li>
 	<li><a href="itemRegister">Add Item</a></li>
+	<li><a href="itemEdit">Edit Item</a></li>
 	<li style="float:right"><a href="account">Account</a></li>
 	<li style="float:right"><a href="cart">Cart: </a></li>
 </ul>

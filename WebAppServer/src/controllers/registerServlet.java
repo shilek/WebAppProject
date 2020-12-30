@@ -46,6 +46,8 @@ public class registerServlet extends HttpServlet {
 		try {
 			if (siteController.checkEmail(email) == true) {
 				siteController.registerUser(email, password);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
+				dispatcher.forward(request, response);
 			}
 			else {
 				error = "E-mail already exists.";
@@ -56,8 +58,6 @@ public class registerServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
-		dispatcher.forward(request, response);
 		}
 		else {
 			error = "Passwords do not match.";
