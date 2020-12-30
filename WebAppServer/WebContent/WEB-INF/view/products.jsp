@@ -98,6 +98,11 @@ position: fixed;
 bottom: 0;
 }
 
+.search{
+width: 60%;
+height: 50px;
+}
+
 </style>
 <meta charset="ISO-8859-1">
 <title>AdminPanel</title>
@@ -115,6 +120,17 @@ bottom: 0;
 </ul>
 <h1 style="text-align:center">Products</h1>
 <div class=container>
+<div class=search>
+<form action="<%= request.getContextPath() %>/products?action=search" method="post">
+   <input list="items" name="searchedItem">
+   <datalist id="items">
+   <c:forEach var="item" items="${itemsList}">
+   <option value="${item.getName()}">
+   </c:forEach>
+   </datalist>
+   <input type="submit" value="Submit" />
+  </form>
+</div>
 <div class=left>
 		<table class=center>
 		<tr>

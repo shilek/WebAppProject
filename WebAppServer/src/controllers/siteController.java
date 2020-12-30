@@ -35,6 +35,7 @@ public class siteController {
 	String SELECT_OBSERVED_ITEMS_ACCOUNTS_SQL = "SELECT account_id FROM observed_items WHERE item_id LIKE ?;";
 	String SELECT_ACCOUNT_EMAIL_SQL = "SELECT email FROM account WHERE id LIKE ?;";
 	String SET_QUANTITY_SQL = "UPDATE items SET quantity=? WHERE id LIKE ?;";
+	String SEARCH_SQL = "SELECT * FROM items WHERE name LIKE ?;";
 
 
 	protected Connection getConnection() {
@@ -426,5 +427,27 @@ public class siteController {
 	} catch(Exception e) {
 		e.printStackTrace();
 	}
+	}
+	
+	public List<Item> searchItems(String _name) {
+		List<Item> items = new ArrayList<>();
+		try (Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_SQL);){
+			preparedStatement.setString(1, "%"+_name+"%");
+			System.out.println(preparedStatement);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				int quantity = rs.getInt("quantity");
+				double price = rs.getDouble("price");
+				String image = rs.getString("image");
+				int category = rs.getInt("category");
+				items.add(new Item(id, name, quantity, price, image, category));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return items;
 	}
 }

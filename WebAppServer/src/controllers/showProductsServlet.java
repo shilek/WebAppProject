@@ -37,10 +37,10 @@ public class showProductsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Item> itemsList = new ArrayList<>();
 		List<Category> categories = siteController.selectAllCategories();
+		request.setAttribute("categories", categories);
 		String id = request.getParameter("id");
 		String observe = request.getParameter("observe");
 		String category = request.getParameter("category");
-		request.setAttribute("categories", categories);
 		if(category != null) {
 			itemsList = siteController.selectItemsFromCategory(Integer.parseInt(category));
 			request.setAttribute("itemsList", itemsList);
@@ -50,9 +50,9 @@ public class showProductsServlet extends HttpServlet {
 		itemsList = siteController.selectAllItems();
 		request.setAttribute("itemsList", itemsList);
 		if(id != null) {
+			HttpSession session = request.getSession();
 			int item_id = Integer.parseInt(id);
 			request.setAttribute("selectedItem", siteController.selectItem(item_id));
-			HttpSession session = request.getSession();
 			if(session.getAttribute("loggedUser") != null){
 				int account_id = siteController.getUserId((String)session.getAttribute("loggedUser"));
 				if(siteController.isItemObserved(account_id, item_id)) {
@@ -86,7 +86,21 @@ public class showProductsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.doGet(request, response);
+		String name = request.getParameter("searchedItem");
+		if(!name.equals("")) {
+			List<Item> itemsList = new ArrayList<>();
+			itemsList = siteController.searchItems(name);
+			request.setAttribute("itemsList", itemsList);
+			List<Category> categories = siteController.selectAllCategories();
+			request.setAttribute("categories", categories);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/products.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			List<Category> categories = siteController.selectAllCategories();
+			request.setAttribute("categories", categories);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/products.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 }
