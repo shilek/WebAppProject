@@ -5,13 +5,18 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
 <style>
+body {
+    font-family: 'Lato';font-size: 16px;
+}
 ul {
-  list-style-type: none;
+   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #3591e7;
+  background-color: #666;
 }
 
 li {
@@ -28,30 +33,41 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-  background-color: #1170c7;
+    background-color: #ddd;
+  color: black;
 }
-
-.active {
-  background-color: #c6ddf2;
+li a.active {
+  background-color: #888;
 }
 
 .footer {
-position: fixed;
+padding: 20px;
+text-align: center;
+background: #ddd;
 bottom: 0;
 }
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}
+
+
+
 </style>
 <title>Home</title>
 </head>
 <body>
 <div>
-	<div align="center" id="logo" style="height:100px">LOGO</div>
+	<img src="images/logotest.jpg" alt="Logo" width="300" height="105" class="center">
 </div>
 <ul>
-	<li><a href="index">Home</a></li>
-	<li><a href="products">Products</a></li>
-	<li><a href="contact">Contact</a></li>
-	<li style="float:right"><a href="account">Account</a></li>
-	<li style="float:right"><a href="cart">Cart: </a></li>
+	<li><a href="index"><i class="fa fa-home"></i></a></li>
+	<li><a href="products"><i class="fa fa-desktop" aria-hidden="true"></i><b> PRODUCTS</b></a></li>
+	<li><a href="contact"><i class="fa fa-info" aria-hidden="true"><b> CONTACT US!</b></i></a></li>
+	<li style="float:right"><a href="account" class="active"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+	<li style="float:right"><a href="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> </a></li>
 </ul>
 <c:if test = "${loggedInEmail == NULL}">      
 <h1>Login</h1>
@@ -70,5 +86,10 @@ bottom: 0;
   </form>
   <c:out value = "${loginError}" />
 </c:if> 
+<footer>
+		<div class="footer"> &copy; 2020 Copyright:
+	      <a href="index"> Logo.com</a>
+	    </div>
+	</footer>	
 </body>
 </html>
