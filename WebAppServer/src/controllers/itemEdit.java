@@ -67,9 +67,11 @@ public class itemEdit extends HttpServlet {
 		String category = request.getParameter("category");
 		siteController.updateItem(id, name, Integer.parseInt(quantity), Double.parseDouble(price), image, Integer.parseInt(category));
 		if(((Item) session.getAttribute("pickedItemToEdit")).getQuantity() == 0 && ((Item) session.getAttribute("pickedItemToEdit")).getQuantity() != Integer.parseInt(quantity)){
+			System.out.println("send");
 			siteController.sendEmailsItemReady(id);
 		}
 		if(((Item) session.getAttribute("pickedItemToEdit")).getQuantity() > 0 && Integer.parseInt(quantity) == 0) {
+			System.out.println("send");
 			siteController.sendEmailsItemOut(id);
 		}
 		session.removeAttribute("pickedItemToEdit");

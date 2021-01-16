@@ -123,6 +123,10 @@ bottom: 0;
      <td>City: </td>
      <td>${order.get(4)}</td>
      </tr>
+	 <tr>
+     <td>Shipping: </td>
+     <td>${order.get(5)}</td>
+     </tr>
    </table>
    <input type="submit" value="Buy" />
   </form>

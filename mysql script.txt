@@ -35,6 +35,7 @@ CREATE TABLE `orders`
  `city`  varchar(30) NOT NULL ,
  `quantity` int NOT NULL ,
  `item_id`  int NOT NULL ,
+ `shipping`  varchar(30) NOT NULL ,
 
 PRIMARY KEY (`id`)
 );

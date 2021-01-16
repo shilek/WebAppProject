@@ -40,7 +40,7 @@ public class accountServlet extends HttpServlet {
 			session.setAttribute("save", "yes");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/buyStep2.jsp");
 		dispatcher.forward(request, response);
-		}
+		} 
 	}
 
 	/**
@@ -53,12 +53,24 @@ public class accountServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		try {
 			HttpSession session = request.getSession();
+			if(session.getAttribute("loggedUser") != null) {
 			if(request.getParameter("logout") != null) {
 				session.removeAttribute("loggedUser");
 				session.removeAttribute("userName");
 				session.removeAttribute("userSurname");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
 				dispatcher.forward(request, response);
+			}
+			else if(request.getParameter("backToAccount") != null) {
+				session.removeAttribute("orders");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/account.jsp");
+				dispatcher.forward(request, response);
+			}
+			else if (request.getParameter("accountOrders") != null) {
+				session.setAttribute("orders", siteController.selectAccountOrders(siteController.getUserId((String) session.getAttribute("loggedUser"))));
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/account.jsp");
+				dispatcher.forward(request, response);
+			}
 			}
 			else {
 			if (siteController.checkLogin(email, password) == true) {

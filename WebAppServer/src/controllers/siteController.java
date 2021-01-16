@@ -23,7 +23,7 @@ public class siteController {
 	String SELECT_EMAIL_SQL = "SELECT email FROM account WHERE email LIKE ?;";
 	String SELECT_USER_SQL = "SELECT name, surname, email FROM account WHERE email LIKE ?;";
 	String SELECT_MAX_ID_ORDER_SQL = "SELECT MAX(order_id) AS id FROM orders;";
-	String INSERT_ORDER_SQL = "INSERT INTO orders" + " (order_id, name, surname, email, address, city, quantity, item_id) VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?);";
+	String INSERT_ORDER_SQL = "INSERT INTO orders" + " (order_id, name, surname, email, address, city, quantity, item_id, shipping) VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	String INSERT_BOUGHT_ITEM_SQL = "INSERT INTO bought_items" + " (account_id, order_id) VALUES " + " (?, ?);";
 	String GET_USER_ID_SQL = "SELECT id FROM account WHERE email LIKE ?;";
 	String GET_OBSERVED_SQL = "SELECT item_id FROM observed_items WHERE account_id LIKE ? AND item_id LIKE ?;";
@@ -36,6 +36,7 @@ public class siteController {
 	String SELECT_ACCOUNT_EMAIL_SQL = "SELECT email FROM account WHERE id LIKE ?;";
 	String SET_QUANTITY_SQL = "UPDATE items SET quantity=? WHERE id LIKE ?;";
 	String SEARCH_SQL = "SELECT * FROM items WHERE name LIKE ?;";
+	String SELECT_ORDERS_SQL ="SELECT orders.order_id as order_id, items.image as image, items.name as itemname, items.price as price, orders.quantity as quantity, orders.name as ordername, orders.surname as surname, orders.email as email, orders.address as address, orders.city as city, orders.shipping as shipping FROM orders, items, bought_items WHERE bought_items.account_id LIKE ? AND bought_items.order_id = orders.order_id AND orders.item_id = items.id;";
 
 
 	protected Connection getConnection() {
@@ -188,7 +189,7 @@ public class siteController {
 		return id;
 	}
 	
-	public void insertOrder(int id, String name, String surname, String email, String address, String city, int quantity, int item_id) {
+	public void insertOrder(int id, String name, String surname, String email, String address, String city, int quantity, int item_id, String shipping) {
 		try{Connection connection = getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_SQL);
 		preparedStatement.setInt(1, id);
@@ -199,6 +200,7 @@ public class siteController {
 		preparedStatement.setString(6, city);
 		preparedStatement.setInt(7, quantity);
 		preparedStatement.setInt(8, item_id);
+		preparedStatement.setString(9, shipping);
 		preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -369,7 +371,7 @@ public class siteController {
 		for(int i=0; i < account_ids.size(); i++) {
 			preparedStatement.setInt(1, account_ids.get(i));
 			rs = preparedStatement.executeQuery();
-			account_emails.add(rs.getString("email"));
+			if(rs.next()) account_emails.add(rs.getString("email"));
 		}
 		Mailer.sendMany(account_emails, "Stan przedmiotu", buildEmailItemReady(item_id));
 		}
@@ -393,7 +395,7 @@ public class siteController {
 		for(int i=0; i < account_ids.size(); i++) {
 			preparedStatement.setInt(1, account_ids.get(i));
 			rs = preparedStatement.executeQuery();
-			account_emails.add(rs.getString("email"));
+			if(rs.next()) account_emails.add(rs.getString("email"));
 		}
 		Mailer.sendMany(account_emails, "Stan przedmiotu", buildEmailItemOut(item_id));
 		}
@@ -449,5 +451,34 @@ public class siteController {
 			e.printStackTrace();
 		}
 		return items;
+	}
+	
+	
+	public List<String[]> selectAccountOrders(int account_id){
+		List<String[]> orders = new ArrayList<String[]>();
+		try (Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDERS_SQL);){
+			preparedStatement.setInt(1, account_id);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				String[] orderInfo = new String[11];
+				orderInfo[0] = rs.getString("order_id");
+				orderInfo[1] = rs.getString("image");
+				orderInfo[2] = rs.getString("itemname");
+				orderInfo[3] = rs.getString("price");
+				orderInfo[4] = rs.getString("quantity");
+				orderInfo[5] = rs.getString("ordername");
+				orderInfo[6] = rs.getString("surname");
+				orderInfo[7] = rs.getString("email");
+				orderInfo[8] = rs.getString("address");
+				orderInfo[9] = rs.getString("city");
+				orderInfo[10] = rs.getString("shipping");
+				orders.add(orderInfo);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return orders;
+		
 	}
 }

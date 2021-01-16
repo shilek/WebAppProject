@@ -87,6 +87,7 @@ bottom: 0;
   </form>
 </c:if> 
  <c:if test = "${loggedUser != NULL}">  
+ <c:if test = "${orders == NULL}">
  <table>
  <tr>
  <td> Name: </td> <td><c:out value="${userName}"/></td>
@@ -99,8 +100,56 @@ bottom: 0;
  </tr>
  </table>
  <form action="<%= request.getContextPath() %>/account" method="post">
+ <input type="submit" value="Orders" name="accountOrders"/>
  <input type="submit" value="Log out" name="logout"/>
  </form>
+ </c:if>
+ <c:if test = "${orders != NULL}">
+ <form action="<%= request.getContextPath() %>/account" method="post">
+
+ 				<c:forEach var="order" items="${orders}">
+ 				<table style="border: 1px solid black;" width="80%" align="center">
+					<tr><td>Numer zamowienia: <c:out value="${order[0]}"></c:out></td></tr>
+					<tr>
+							<td>
+							<p style="text-align: center;"><img src="${order[1]}"class="img-responsive" width="150" height="150"><br></p>
+							</td>
+							<td>
+							<p style="text-align: center;">Nazwa: <font size="+2"><c:out value="${order[2]}"></c:out></font></p>
+							</td>
+							<td>
+							<p style="text-align: center;">Cena: <c:out value="${order[3]}" ></c:out>zl</p>
+							</td>
+							<td>
+							<p style="text-align: center;">Ilosc: <c:out value="${order[4]}" ></c:out></p>
+							</td>
+					</tr>
+					<tr>
+							<td>
+							<p style="text-align: center;">Imie: <c:out value="${order[5]}" ></c:out></p>
+							</td>
+							<td>
+							<p style="text-align: center;">Nazwisko: <c:out value="${order[6]}" ></c:out></p>
+							</td>
+							<td>
+							<p style="text-align: center;">Email: <c:out value="${order[7]}" ></c:out></p>
+							</td>
+							<td>
+							<p style="text-align: center;">Adres: <c:out value="${order[8]}" ></c:out></p>
+							</td>
+							<td>
+							<p style="text-align: center;">Miasto: <c:out value="${order[9]}" ></c:out></p>
+							</td>
+							<td>
+							<p style="text-align: center;">Shipping: <c:out value="${order[10]}" ></c:out></p>
+							</td>
+					</tr>	
+					</table>
+				</c:forEach>
+			
+			<input type="submit" value="Back" name="backToAccount"/>
+			</form>
+ </c:if>
 </c:if>
 <footer>
 		<div class="footer"> &copy; 2020 Copyright:

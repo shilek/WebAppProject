@@ -40,7 +40,7 @@ public class buyServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/buyStep1.jsp");
 			dispatcher.forward(request, response);
 		}
-		if(action.equals("noAccount")) {
+		else if(action.equals("noAccount")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("save", "no");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/buyStep2.jsp");
@@ -64,6 +64,7 @@ public class buyServlet extends HttpServlet {
 			order.add(request.getParameter("email"));
 			order.add(request.getParameter("address"));
 			order.add(request.getParameter("city"));
+			order.add(request.getParameter("shipping"));
 			session.setAttribute("order", order);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/buyStep3.jsp");
 			dispatcher.forward(request, response);
@@ -74,7 +75,7 @@ public class buyServlet extends HttpServlet {
 			List<CartItem> cart = (List<CartItem>)session.getAttribute("cart");
 			int id = sitecontroller.getMaxOrdersId()+1;
 			for(int i=0; i < cart.size(); i++) {
-			sitecontroller.insertOrder(id, orderInfo.get(0), orderInfo.get(1), orderInfo.get(2), orderInfo.get(3), orderInfo.get(4), cart.get(i).getQuantity(), cart.get(i).getItem().getId());
+			sitecontroller.insertOrder(id, orderInfo.get(0), orderInfo.get(1), orderInfo.get(2), orderInfo.get(3), orderInfo.get(4), cart.get(i).getQuantity(), cart.get(i).getItem().getId(), orderInfo.get(5));
 			}
 			String msg = buildEmail(orderInfo, cart);
 			Mailer.send(orderInfo.get(2), "Zamowienie", msg);

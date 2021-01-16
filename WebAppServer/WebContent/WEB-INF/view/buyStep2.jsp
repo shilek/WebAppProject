@@ -123,6 +123,19 @@ bottom: 0;
      <td>City</td>
      <td><input type="text" name="city" /></td>
      </tr>
+	 <tr>
+     <td>Shipping:</td><td>
+     <div>
+     <input type="radio" id="contactChoice1"
+     name="shipping" value="InPost">
+    <label for="contactChoice1">InPost courier</label>
+
+    <input type="radio" id="contactChoice2"
+     name="shipping" value="courier">
+    <label for="contactChoice2">Standard courier</label>
+    </div>
+     </td>
+     </tr>
    </table>
    <input type="submit" value="Buy" />
   </form>
