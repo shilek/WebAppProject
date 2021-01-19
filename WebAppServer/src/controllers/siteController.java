@@ -18,8 +18,8 @@ public class siteController {
 	String SELECT_ITEMS_SQL = "SELECT * FROM items;";
 	String SELECT_ITEM_SQL = "SELECT * FROM items WHERE id LIKE ?;";
 	String SELECT_ITEM_BY_NAME_SQL = "SELECT * FROM items WHERE name LIKE ?;";
-	String SELECT_PASSWORD_SQL = "SELECT password FROM account WHERE email LIKE ?;";
-	String INSERT_USER_SQL = "INSERT INTO account" + " (email, password) VALUES "+"(?, ?);";
+	String SELECT_PASSWORD_SQL = "SELECT password FROM account WHERE email LIKE ? and password LIKE PASSWORD(?);";
+	String INSERT_USER_SQL = "INSERT INTO account" + " (email, password) VALUES "+"(?, PASSWORD(?));";
 	String SELECT_EMAIL_SQL = "SELECT email FROM account WHERE email LIKE ?;";
 	String SELECT_USER_SQL = "SELECT name, surname, email FROM account WHERE email LIKE ?;";
 	String SELECT_MAX_ID_ORDER_SQL = "SELECT MAX(order_id) AS id FROM orders;";
@@ -126,11 +126,11 @@ public class siteController {
 		try{Connection connection = getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PASSWORD_SQL);
 		preparedStatement.setString(1, email);
+		preparedStatement.setString(2, password);
 		ResultSet rs = preparedStatement.executeQuery();
-		if(rs.next() == true) {
-		String result = rs.getString("password");
-		if (result.equals(password)) return true;
-		else return false;
+		if(rs.next()) {
+			System.out.println(rs.getString("password"));
+			return true;
 		}
 		else return false;
 		} catch (Exception e) {
